@@ -1,2 +1,1 @@
-1. [Spring 2023 (Quarto)](/stat555-quarto)
-1. [Fall 2024 (MyST)](/stat555-myst)
+1. [Spring 2025](/spring-2025)
