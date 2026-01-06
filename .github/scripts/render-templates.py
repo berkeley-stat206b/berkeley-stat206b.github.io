@@ -27,6 +27,15 @@ async def get_course_data(app_id, app_key, subject_area, catalog_number):
     data = await course.get_current_courses(app_id, app_key, **params)
     if len(data) == 0:
         raise Exception(f"Could not find SIS data for {params=}.")
+
+    # If multiple courses found, prefer ACTIVE over INACTIVE
+    if len(data) > 1:
+        active_courses = [
+            c for c in data if c.get("status", {}).get("code") == "ACTIVE"
+        ]
+        if active_courses:
+            return active_courses[0]
+
     return data[0]
 
 
@@ -46,11 +55,27 @@ def format_subject_area_code_lower(code):
     return code.lower()
 
 
+def get_formatted_catalog_number(catalog_number):
+    """
+    Custom filter to get formatted catalog number.
+    Handles both string and dict formats from SIS API.
+    """
+    if isinstance(catalog_number, dict):
+        return catalog_number.get("formatted", "")
+    else:
+        return catalog_number
+
+
 def course_identifier(course_data):
     """
     Given catalogNumber of {"prefix": "C", "number": "131", "suffix": "A", "formatted": "C131A"}, return "131a".
+    If catalogNumber is a string, use it directly.
     """
-    return format_catalog_number(course_data["catalogNumber"]["formatted"])
+    catalog_num = course_data["catalogNumber"]
+    if isinstance(catalog_num, dict):
+        return format_catalog_number(catalog_num["formatted"])
+    else:
+        return format_catalog_number(catalog_num)
 
 
 def generate_course_site(course_data, directory, config_vars, verbose):
@@ -62,6 +87,7 @@ def generate_course_site(course_data, directory, config_vars, verbose):
     env.filters["format_catalog_number"] = format_catalog_number
     env.filters["format_subject_area_code_cap"] = format_subject_area_code_cap
     env.filters["format_subject_area_code_lower"] = format_subject_area_code_lower
+    env.filters["get_formatted_catalog_number"] = get_formatted_catalog_number
 
     # Read offerings file, if it exists
     offerings_file_path = Path(directory + "/offerings.md")

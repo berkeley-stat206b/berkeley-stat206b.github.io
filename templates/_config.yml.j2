@@ -13,12 +13,12 @@
 # you will see them accessed via \{\{ site.title \}\}, \{\{ site.github_repo \}\}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via \{\{ site.myvariable \}\}.
-title: "{{ course.subjectArea.code | format_subject_area_code_cap }} {{ course.catalogNumber.formatted | format_catalog_number }}: {{ course.title }}"
+title: "{{ course.subjectArea.code | format_subject_area_code_cap }} {{ course.catalogNumber | get_formatted_catalog_number | format_catalog_number }}: {{ course.title }}"
 tagline: Course Overview
 description: "{{ course.description }}"
 author: "{{ config_vars.author }}"
 baseurl: '' # the subpath of your site, e.g. /blog
-url: 'https://{{ course.subjectArea.code | format_subject_area_code_lower }}{{ course.catalogNumber.formatted | format_catalog_number }}.berkeley.edu'
+url: 'https://{{ course.subjectArea.code | format_subject_area_code_lower }}{{ course.catalogNumber | get_formatted_catalog_number | format_catalog_number }}.berkeley.edu'
 exclude: ["Gemfile", "Gemfile.lock", "LICENSE"]
 logo: 'resources/logo.png'
 
