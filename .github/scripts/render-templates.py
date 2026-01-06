@@ -109,7 +109,7 @@ async def main():
         "SIS_COURSE_API_KEY",
     ]:
         if e not in os.environ:
-            raise Exception("'{e}' not defined in environment.")
+            raise Exception(f"'{e}' not defined in environment.")
 
     _google_analytics_tag = os.environ.get("GOOGLE_ANALYTICS_TAG", "")
     _author = os.environ.get("CONFIG_AUTHOR", "")
@@ -191,9 +191,6 @@ async def main():
         args.subject_area,
         args.catalog_number,
     )
-
-    if args.verbose:
-        print(f"{data=}")
 
     # Read data from local file if it exists
     override_data = None
