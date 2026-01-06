@@ -13,16 +13,16 @@
 # you will see them accessed via \{\{ site.title \}\}, \{\{ site.github_repo \}\}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via \{\{ site.myvariable \}\}.
-title: "Stat 206b: Stochastic Processes"
+title: "Stat 206b: Advanced Topics in Probability and Stochastic Processes"
 tagline: Course Overview
-description: "The content of this course changes from year to year. Course topics will be selected from: the general theory of processes, sample function properties, weak convergence, Brownian motion, diffusions, Levy processes, Markov processes, martingales, Gaussian processes and further topics. "
+description: "The topics of this course change each semester, and multiple sections may be offered. Advanced topics in probability offered according to students demand and faculty availability. "
 author: "SCF"
 baseurl: '' # the subpath of your site, e.g. /blog
 url: 'https://stat206b.berkeley.edu'
 exclude: ["Gemfile", "Gemfile.lock", "LICENSE"]
 logo: 'resources/logo.png'
 
-ga_tracking: "G-"
+ga_tracking: "G-492493765"
 
 # Theme settings
 remote_theme: just-the-docs/just-the-docs@v0.10.1
